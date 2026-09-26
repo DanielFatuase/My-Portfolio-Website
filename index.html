@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+════════════════════════════════════════════════════════════════════
+  FATUASE DANIEL — PORTFOLIO WEBSITE
+  ────────────────────────────────────────────────────────────────────
+  HOW TO ADD YOUR IMAGES & VIDEOS (no coding knowledge needed):
+  1. Create a folder named "media" in the same place as this file.
+  2. Drop your images (.jpg / .png) and videos (.mp4) into it.
+  3. Open this file in a text editor (Notepad / TextEdit) and find the
+     section near the bottom that starts with:  const PROJECTS = [
+  4. For each project, change the "src" value to your file's name,
+     e.g.  src: "media/my-flyer.jpg"  or  src: "media/my-video.mp4"
+  5. Change the title / category / client / year text the same way.
+  6. Save the file, refresh your browser. Done.
+════════════════════════════════════════════════════════════════════
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fatuase Daniel — Business Automation & Digital Growth Specialist</title>
+<meta name="description" content="Fatuase Daniel combines AI automation, data, design, marketing and human-centered thinking to help businesses attract customers, communicate better and operate more efficiently.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c;
+    --bg2:#121214;
+    --panel:#17171a;
+    --red:#c1121f;
+    --red-dark:#780000;
+    --yellow:#ffd60a;
+    --white:#f5f5f4;
+    --grey:#9a9a9d;
+    --line:rgba(245,245,244,.1);
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--white);font-family:var(--font-body);line-height:1.6;overflow-x:hidden}
+  ::selection{background:var(--yellow);color:#000}
+  img,video{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- NAV ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+      padding:18px 4vw;background:rgba(11,11,12,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .logo{font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:.02em}
+  .logo em{font-style:normal;color:var(--yellow)}
+  .logo .dot{color:var(--red)}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);transition:color .25s}
+  .nav-links a:hover{color:var(--yellow)}
+  .nav-cta{background:var(--yellow);color:#000;font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;
+           padding:10px 22px;border-radius:999px;transition:transform .25s,background .25s}
+  .nav-cta:hover{background:var(--red);color:#fff;transform:translateY(-2px)}
+  .burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;color:var(--white);padding:8px 10px;cursor:pointer;font-size:1rem}
+
+  /* ---------- HERO ---------- */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 4vw 60px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:230px 1fr;gap:48px;align-items:end}
+  .hero-side{font-size:.85rem;color:var(--grey)}
+  .hero-side .kicker{color:var(--yellow);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;display:block;margin-bottom:14px}
+  .hero-side p{max-width:210px}
+  h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.6rem,7.2vw,6.4rem);line-height:1.02;letter-spacing:-.02em;text-transform:uppercase}
+  h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--white)}
+  h1 .red{color:var(--red)}
+  h1 .yellow{color:var(--yellow)}
+  .hero-sub{margin-top:28px;max-width:560px;color:var(--grey);font-size:1.05rem}
+  .hero-ctas{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:999px;font-weight:600;font-size:.9rem;
+       letter-spacing:.04em;transition:transform .25s,background .25s,color .25s}
+  .btn-primary{background:var(--red);color:#fff}
+  .btn-primary:hover{background:var(--yellow);color:#000;transform:translateY(-3px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--white)}
+  .btn-ghost:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-3px)}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0;background:var(--bg2)}
+  .marquee-track{display:flex;gap:48px;width:max-content;animation:scroll 28s linear infinite}
+  .marquee-track span{font-family:var(--font-display);font-size:1.05rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:var(--grey)}
+  .marquee-track span i{font-style:normal;color:var(--red);margin-right:48px}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- STATS ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .stat{padding:44px 4vw;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat b{font-family:var(--font-display);font-size:clamp(2rem,3.4vw,3rem);color:var(--yellow);display:block;line-height:1}
+  .stat span{color:var(--grey);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-top:8px;display:block}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:110px 4vw}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:56px;flex-wrap:wrap}
+  .section-head h2{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.6rem);font-weight:700;letter-spacing:-.01em;text-transform:uppercase;line-height:1.05}
+  .section-head h2 em{font-style:normal;color:var(--red)}
+  .section-head p{max-width:380px;color:var(--grey);font-size:.95rem}
+  .tag{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);
+       border:1px solid rgba(255,214,10,.35);border-radius:999px;padding:6px 14px;margin-bottom:18px}
+
+  /* ---------- WORK ---------- */
+  #work{background:var(--bg)}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+  .filter-btn{background:none;border:1px solid var(--line);color:var(--grey);font-family:var(--font-display);font-weight:600;
+              font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;padding:12px 26px;border-radius:999px;cursor:pointer;transition:all .25s}
+  .filter-btn:hover{border-color:var(--yellow);color:var(--yellow)}
+  .filter-btn.active{background:var(--yellow);border-color:var(--yellow);color:#000}
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .35s,border-color .35s,opacity .35s}
+  .card:hover{transform:translateY(-6px);border-color:rgba(255,214,10,.4)}
+  .card-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#1d1d20}
+  .card-media img,.card-media video{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .card:hover .card-media img,.card:hover .card-media video{transform:scale(1.05)}
+  .card-media video{cursor:pointer}
+  .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;
+               background:linear-gradient(135deg,#1a0507 0%,#3d0609 55%,#5c0a10 100%)}
+  .placeholder.yellow{background:linear-gradient(135deg,#191500 0%,#4d4000 60%,#776300 100%)}
+  .placeholder .ph-icon{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--yellow)}
+  .placeholder.yellow .ph-icon{color:var(--white)}
+  .placeholder .ph-title{font-family:var(--font-display);font-weight:600;font-size:1rem;text-transform:uppercase;letter-spacing:.06em}
+  .placeholder .ph-src{font-size:.72rem;color:rgba(245,245,244,.5);font-family:ui-monospace,monospace}
+  .card-cat{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);color:var(--yellow);
+            font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,214,10,.3)}
+  .card-body{padding:22px}
+  .card-body h3{font-family:var(--font-display);font-size:1.15rem;font-weight:600;margin-bottom:6px}
+  .card-body p{color:var(--grey);font-size:.88rem}
+  .card-meta{margin-top:14px;display:flex;justify-content:space-between;color:var(--grey);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+  .card-meta i{font-style:normal;color:var(--red)}
+  .card.hidden{display:none}
+
+  /* ---------- WHAT I DO (dejan.works style) ---------- */
+  #services{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .services-list{border-top:1px solid var(--line)}
+  .service-row{display:grid;grid-template-columns:80px 1fr 1.2fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:background .3s,padding-left .3s}
+  .service-row:hover{background:rgba(193,18,31,.06);padding-left:16px}
+  .service-num{font-family:var(--font-display);color:var(--red);font-weight:700;font-size:1.1rem}
+  .service-row h3{font-family:var(--font-display);font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:600}
+  .service-row p{color:var(--grey);font-size:.95rem}
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-row{display:grid;grid-template-columns:200px 1fr 1.4fr;gap:32px;padding:40px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .exp-years{font-family:var(--font-display);color:var(--yellow);font-weight:600;letter-spacing:.06em}
+  .exp-role h3{font-family:var(--font-display);font-size:1.3rem;font-weight:600}
+  .exp-role span{color:var(--red);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+  .exp-row p{color:var(--grey);font-size:.95rem}
+
+  /* ---------- ABOUT ---------- */
+  #about{background:var(--bg2);border-top:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:380px 1fr;gap:64px;align-items:start}
+  .about-photo{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+  .about-photo img{width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(25%) contrast(1.05)}
+  .about-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,11,12,.85));pointer-events:none}
+  .about-photo .badge{position:absolute;bottom:18px;left:18px;z-index:2;background:var(--yellow);color:#000;font-family:var(--font-display);
+                      font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:999px}
+  .about-text p{color:var(--grey);font-size:1.02rem;margin-bottom:20px;max-width:640px}
+  .about-text p b{color:var(--white);font-weight:600}
+  .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .skill{border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:.82rem;color:var(--grey);transition:all .25s;cursor:default}
+  .skill:hover{border-color:var(--red);color:var(--white);background:rgba(193,18,31,.12)}
+  .edu{margin-top:40px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--panel);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .edu b{font-family:var(--font-display);font-size:1.05rem}
+  .edu span{color:var(--grey);font-size:.85rem}
+  .edu .yrs{color:var(--yellow);font-family:var(--font-display);font-weight:600}
+
+  /* ---------- CONTACT ---------- */
+  #contact{text-align:center;padding:140px 4vw}
+  #contact h2{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,5rem);font-weight:700;text-transform:uppercase;line-height:1.05;letter-spacing:-.01em}
+  #contact h2 span{color:var(--yellow)}
+  #contact>p{color:var(--grey);margin:24px auto 44px;max-width:520px}
+  .contact-grid{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .contact-link{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:14px 26px;
+                font-size:.9rem;transition:all .25s}
+  .contact-link:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-3px)}
+  .contact-link.hot{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+  .contact-link.hot:hover{background:var(--yellow);border-color:var(--yellow);color:#000}
+  footer{border-top:1px solid var(--line);padding:28px 4vw;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--grey);font-size:.8rem;letter-spacing:.06em}
+  footer a:hover{color:var(--yellow)}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:1000px){
+    .work-grid{grid-template-columns:repeat(2,1fr)}
+    .about-grid{grid-template-columns:1fr}
+    .about-photo{max-width:420px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat:nth-child(2){border-right:none}
+    .stat{border-bottom:1px solid var(--line)}
+    .stat:nth-child(3),.stat:nth-child(4){border-bottom:none}
+    .service-row{grid-template-columns:50px 1fr;grid-template-rows:auto auto}
+    .service-row p{grid-column:2}
+    .exp-row{grid-template-columns:1fr;gap:8px}
+  }
+  @media(max-width:640px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg2);flex-direction:column;padding:24px;border-bottom:1px solid var(--line);gap:20px}
+    .nav-links.open{display:flex}
+    .burger{display:block}
+    .hero-grid{grid-template-columns:1fr;gap:24px}
+    .work-grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    section{padding:80px 5vw}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#top">FATUASE<em>DANIEL</em><span class="dot">.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#experience">Experience</a>
+    <a href="#about">About</a>
+    <a class="nav-cta" href="#contact">Let's Talk</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-side">
+      <span class="kicker">● Available for work</span>
+      <p>I help businesses connect their moving parts — automation, design, marketing, and human-centered thinking.</p>
+    </div>
+    <div>
+      <h1>
+        <span class="outline">Automate.</span><br>
+        <span class="red">Design.</span><br>
+        <span class="yellow">Grow.</span>
+      </h1>
+      <p class="hero-sub">Business Automation &amp; Digital Growth Specialist with 5+ years of experience building systems that attract customers, communicate better, and operate more efficiently.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#work">View My Work ↓</a>
+        <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal"><b>5+</b><span>Years Experience</span></div>
+  <div class="stat reveal"><b>20+</b><span>Communities Built</span></div>
+  <div class="stat reveal"><b>1,614+</b><span>Members Reached</span></div>
+  <div class="stat reveal"><b>3</b><span>Industries Served</span></div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-head reveal">
+    <div>
+      <span class="tag">Portfolio</span>
+      <h2>Featured <em>Work</em></h2>
+    </div>
+    <p>Designs, videos, and automation systems crafted for schools, initiatives, and communities across tech, education, and music.</p>
+  </div>
+  <div class="filters reveal" id="filters"></div>
+  <div class="work-grid" id="workGrid"></div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-head reveal">
+    <div>
+      <span class="tag">What I Do</span>
+      <h2>How I Help <em>Teams Win</em></h2>
+    </div>
+    <p>From repetitive processes to scattered marketing — I find the gaps and build systems that close them.</p>
+  </div>
+  <div class="services-list">
+    <div class="service-row reveal">
+      <span class="service-num">01</span>
+      <h3>AI Automation</h3>
+      <p>I identify repetitive or inefficient processes in your business and streamline them with AI-powered workflows — saving hours every week.</p>
+    </div>
+    <div class="service-row reveal">
+      <span class="service-num">02</span>
+      <h3>Graphic Design &amp; Content</h3>
+      <p>Flyers, campaign visuals, and social media content designed to communicate clearly and convert attention into action.</p>
+    </div>
+    <div class="service-row reveal">
+      <span class="service-num">03</span>
+      <h3>Lead Generation &amp; Community Building</h3>
+      <p>Built 20+ communities with 1,614+ members across tech, education, and music — I know how to attract the right people and keep them engaged.</p>
+    </div>
+    <div class="service-row reveal">
+      <span class="service-num">04</span>
+      <h3>Web Design &amp; UI</h3>
+      <p>Human-centered websites and interfaces that make businesses easy to trust, easy to navigate, and easy to buy from.</p>
+    </div>
+    <div class="service-row reveal">
+      <span class="service-num">05</span>
+      <h3>Training &amp; Enablement</h3>
+      <p>Trained students on automation, digital marketing, and design — turning complex tools into practical skills teams can use immediately.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-head reveal">
+    <div>
+      <span class="tag">Career</span>
+      <h2>Work <em>Experience</em></h2>
+    </div>
+  </div>
+  <div class="exp-row reveal">
+    <span class="exp-years">2024 — 2026</span>
+    <div class="exp-role">
+      <h3>Design &amp; Media Specialist</h3>
+      <span>The Niche Learning Field Int'l Schl (NILFIS)</span>
+    </div>
+    <p>Designed and created marketing content — videos and flyers — for social media, campaigns, and in-house communication.</p>
+  </div>
+  <div class="exp-row reveal">
+    <span class="exp-years">2021 — 2024</span>
+    <div class="exp-role">
+      <h3>Graphics Design Assistant Lead</h3>
+      <span>Atycare Initiative</span>
+    </div>
+    <p>Designed marketing and communication flyers for social media, campaigns, and in-house communication.</p>
+  </div>
+  <div class="exp-row reveal">
+    <span class="exp-years">2021 — 2026</span>
+    <div class="exp-role">
+      <h3>Lead Generation &amp; Community Management</h3>
+      <span>Dynamic Freelancing</span>
+    </div>
+    <p>Built 20+ communities with over 1,614 members across tech, education, and music industries. Trained students on automation, digital marketing, and design.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-head reveal">
+    <div>
+      <span class="tag">About Me</span>
+      <h2>The Mind Behind <em>The Systems</em></h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-photo reveal">
+      <img src="media/daniel-photo.jpg" alt="Fatuase Daniel">
+      <span class="badge">Fatuase Daniel</span>
+    </div>
+    <div class="about-text reveal">
+      <p><b>With over half a decade of experience</b> and a formidable strength in connecting the moving parts of a business, I identify repetitive or inefficient processes and streamline them.</p>
+      <p>I combine <b>AI automation, data, design, marketing, and human-centered thinking</b> to build systems that help businesses attract customers, communicate better, and operate more efficiently.</p>
+      <p>From designing campaign visuals for schools to building thousand-member communities, my work sits at the intersection of <b>creativity and systems thinking</b>.</p>
+      <div class="skills" id="skills"></div>
+      <div class="edu">
+        <div>
+          <b>B.Sc. Computer Science</b><br>
+          <span>University of Cross River State (UNICROSS)</span>
+        </div>
+        <span class="yrs">2021 — 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="tag reveal">Let's Connect</span>
+  <h2 class="reveal">Let's Build Something <span>Efficient.</span></h2>
+  <p class="reveal">Have a process that eats up time? A brand that needs sharper visuals? A community waiting to be built? My inbox is open.</p>
+  <div class="contact-grid reveal">
+    <a class="contact-link hot" href="mailto:daniel.businessautomation@gmail.com">✉ daniel.businessautomation@gmail.com</a>
+    <a class="contact-link" href="mailto:therealdaodesigns@gmail.com">✉ therealdaodesigns@gmail.com</a>
+    <a class="contact-link" href="tel:+2349029860805">☏ +234 902 986 0805</a>
+    <a class="contact-link" href="tel:+2349132716549">☏ +234 913 271 6549</a>
+    <a class="contact-link" href="https://instagram.com/the_nilfis" target="_blank" rel="noopener">◎ Instagram — @the_nilfis</a>
+    <a class="contact-link" href="https://instagram.com/atycareinitiative" target="_blank" rel="noopener">◎ Instagram — @atycareinitiative</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Fatuase Daniel. All rights reserved.</span>
+  <span>Business Automation · Digital Growth · Design</span>
+  <a href="#top">Back to top ↑</a>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   ★ EDIT YOUR PROJECTS HERE — no coding knowledge needed ★
+   1. Put your image/video files in the "media" folder next to this file.
+   2. Update "src" below to match your file names.
+   3. category must be one of: "design", "video", "automation"
+   ──────────────────────────────────────────────────────────────────
+*/
+const PROJECTS = [
+  { title:"NILFIS Campaign Flyers",    category:"design",     client:"NILFIS",            year:"2024–2026", src:"media/design-01.jpg",    desc:"Marketing flyers crafted for social media, campaigns, and in-house communication." },
+  { title:"NILFIS Promo Videos",       category:"video",      client:"NILFIS",            year:"2024–2026", src:"media/video-01.mp4",     desc:"Promotional and campaign videos produced for digital channels.", video:true },
+  { title:"Atycare Communication Kit", category:"design",     client:"Atycare Initiative",year:"2021–2024", src:"media/design-02.jpg",    desc:"Flyers and communication designs for campaigns and internal use." },
+  { title:"Community Growth System",   category:"automation", client:"Dynamic Freelancing",year:"2021–2026",src:"media/automation-01.jpg",desc:"Workflows and funnels used to build 20+ communities with 1,614+ members." },
+  { title:"Social Media Content Pack", category:"design",     client:"Various Brands",    year:"2023–2026", src:"media/design-03.jpg",    desc:"A curated set of scroll-stopping social media visuals." },
+  { title:"Lead Gen Funnel Build",     category:"automation", client:"Dynamic Freelancing",year:"2024–2026",src:"media/automation-02.jpg",desc:"Automated lead capture and nurture systems for service businesses." },
+  { title:"Brand Story Video Edit",    category:"video",      client:"NILFIS",            year:"2025",      src:"media/video-02.mp4",     desc:"Edited brand storytelling video — process to final cut.", video:true },
+];
+
+const SKILLS = ["AI Automation","Graphic Design","Data Analysis","Web Design","UI Design","Digital Marketing",
+  "Lead Generation","Community Building","Content Creation","Persuasive Writing","Time Management",
+  "Leadership","Effective Communication","Critical Thinking"];
+
+const CATS = [ {id:"all",label:"All Work"}, {id:"design",label:"Graphic Design"}, {id:"video",label:"Video"}, {id:"automation",label:"Automation & Web"} ];
+
+/* ---------- Marquee ---------- */
+const words = SKILLS.slice(0,10);
+document.getElementById('marqueeTrack').innerHTML =
+  (words.map(w=>`<span><i>●</i>${w}</span>`).join('')).repeat(2);
+
+/* ---------- Skills ---------- */
+document.getElementById('skills').innerHTML = SKILLS.map(s=>`<span class="skill">${s}</span>`).join('');
+
+/* ---------- Filters ---------- */
+const filtersEl = document.getElementById('filters');
+filtersEl.innerHTML = CATS.map((c,i)=>`<button class="filter-btn${i===0?' active':''}" data-cat="${c.id}">${c.label}</button>`).join('');
+
+/* ---------- Work cards ---------- */
+const grid = document.getElementById('workGrid');
+
+function placeholderHTML(p, yellow){
+  return `<div class="placeholder${yellow?' yellow':''}">
+    <span class="ph-icon">${p.video?'▶':'✦'}</span>
+    <span class="ph-title">${p.title}</span>
+    <span class="ph-src">add file: ${p.src}</span>
+  </div>`;
+}
+
+function renderProjects(cat){
+  grid.innerHTML = '';
+  PROJECTS.forEach((p, i) => {
+    if(cat !== 'all' && p.category !== cat) return;
+    const card = document.createElement('article');
+    card.className = 'card reveal visible';
+    const media = document.createElement('div');
+    media.className = 'card-media';
+
+    const catLabel = CATS.find(c=>c.id===p.category).label;
+    media.insertAdjacentHTML('beforeend', `<span class="card-cat">${catLabel}</span>`);
+
+    if(p.video){
+      const v = document.createElement('video');
+      v.controls = true; v.preload = 'metadata'; v.playsInline = true;
+      const s = document.createElement('source');
+      s.src = p.src; s.type = 'video/mp4';
+      let failed = false;
+      s.addEventListener('error', () => {
+        if(failed) return; failed = true;
+        v.remove(); media.insertAdjacentHTML('beforeend', placeholderHTML(p, i%2===0));
+      });
+      v.appendChild(s);
+      media.appendChild(v);
+      if(!p.src){ s.dispatchEvent ? null : null; }
+    } else {
+      const img = new Image();
+      img.alt = p.title; img.loading = 'lazy';
+      img.onerror = () => { img.remove(); media.insertAdjacentHTML('beforeend', placeholderHTML(p, i%2===0)); };
+      img.src = p.src;
+      media.appendChild(img);
+    }
+
+    card.appendChild(media);
+    card.insertAdjacentHTML('beforeend', `
+      <div class="card-body">
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <div class="card-meta"><span><i>●</i> ${p.client}</span><span>${p.year}</span></div>
+      </div>`);
+    grid.appendChild(card);
+  });
+}
+renderProjects('all');
+
+filtersEl.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  filtersEl.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProjects(btn.dataset.cat);
+});
+
+/* ---------- Mobile nav ---------- */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>navLinks.classList.remove('open')));
+
+/* ---------- Reveal on scroll ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
